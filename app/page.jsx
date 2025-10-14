@@ -1,0 +1,148 @@
+import Link from "next/link";
+import Footer from "@/components/footer";
+
+export default function Landingpage() {
+  return (
+    <>
+    <main className="bg-white text-gray-900">
+      {/* Hero Section */}
+    <nav className="bg-white shadow px-6 py-3 flex justify-between items-center sticky top-0 border-1">
+    <div>
+      <h1 className="text-2xl font-bold">
+        Club<span className="text-orange-500">Zone</span>
+      </h1>
+    </div>
+
+    <div>
+      <ul className="flex gap-12">
+        <li><a href="#beranda" className="hover:text-green-900">Beranda</a></li>
+        <li><a href="#fitur" className="hover:text-green-900">Fitur</a></li>
+        <li><a href="#eskul" className="hover:text-green-900">Ekstrakulikuler</a></li>
+        <li><a href="#kontak" className="hover:text-green-900">Kontak</a></li>
+      </ul>
+    </div>
+
+    <div>
+    <Link href="/masuk">
+        <button type="button" className="px-4 bg-green-800 rounded text-white py-3 hover:bg-green-900">masuk</button>
+    </Link>
+    </div>
+    </nav>
+
+      <section className="bg-green-800 text-white px-8 py-16 grid md:grid-cols-2 items-center gap-8" id="beranda">
+        <div>
+          <h1 className="text-4xl font-bold leading-tight">
+            Kelola Ekstrakurikuler Sekolah dengan <span className="text-orange-400">Mudah</span>
+          </h1>
+          <p className="mt-4 text-lg">
+            Sistem terintegrasi untuk informasi kegiatan dan absensi ekstrakurikuler sekolah.
+            Pantau perkembangan siswa, atur jadwal, dan kelola presensi semuanya dalam satu platform.
+          </p>
+          <button className="mt-6 px-6 py-3 bg-orange-400 rounded-2xl font-bold hover:bg-orange-500 transition">
+            Daftar sekarang
+          </button>
+        </div>
+        <div className="flex justify-center">
+          <img src="./tb.png" alt="Ekstrakurikuler" className="rounded-2xl shadow-lg" />
+        </div>
+      </section>
+
+      {/* Fitur Unggulan */}
+      <section className="px-8 py-16 text-center" id="fitur">
+        <h2 className="text-3xl font-bold mb-4">Fitur Unggulan Kami</h2>
+        <p className="mb-12 text-lg text-gray-600 max-w-2xl mx-auto">
+          Platform kami menyediakan segala yang dibutuhkan untuk manajemen ekstrakurikuler sekolah
+        </p>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="p-6 bg-white rounded-2xl shadow-md">
+            <h3 className="font-bold text-xl">Absensi Digital</h3>
+            <p className="text-gray-600 mt-2">
+              Pencatatan kehadiran jadi mudah dengan scan QR. Cepat, akurat, dan langsung tersimpan otomatis.
+            </p>
+          </div>
+          <div className="p-6 bg-white rounded-2xl shadow-md">
+            <h3 className="font-bold text-xl">Manajemen Jadwal</h3>
+            <p className="text-gray-600 mt-2">
+              Atur jadwal latihan dan pertemuan dengan mudah. Notifikasi otomatis ke siswa dan pelatih.
+            </p>
+          </div>
+          <div className="p-6 bg-white rounded-2xl shadow-md">
+            <h3 className="font-bold text-xl">Laporan Lengkap</h3>
+            <p className="text-gray-600 mt-2">
+              Lihat perkembangan peserta dalam laporan digital yang bisa diunduh kapan saja, dalam berbagai format.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Ekstrakurikuler Tersedia */}
+      <section className="px-8 py-16 bg-gray-50 text-center" id="eskul">
+        <h2 className="text-3xl font-bold mb-4">Ekstrakurikuler Tersedia</h2>
+        <p className="text-gray-600 mb-12 text-lg italic">
+          Berbagai pilihan kegiatan untuk pengembangan minat <span className="font-semibold">dan bakat siswa</span>
+        </p>
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="bg-white p-4 rounded-2xl shadow-md">
+            <img src="./basket.jpg" className="rounded-xl" alt="Basket" />
+            <h3 className="text-xl font-bold mt-4">Basket</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Melatih kerja sama tim, ketangkasan, dan semangat sportivitas melalui permainan bola basket.
+            </p>
+            <p className="text-xs mt-2 text-gray-500">Selasa & Jumat, 15.00-17.00 • 37 Peserta</p>
+          </div>
+          <div className="bg-white p-4 rounded-2xl shadow-md">
+            <img src="./pencak silat.jpg" className="rounded-xl" alt="Pencak Silat" />
+            <h3 className="text-xl font-bold mt-4">Pencak Silat</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Melatih ketangkasan, kekuatan fisik, dan pengendalian diri melalui seni bela diri tradisional Indonesia.
+            </p>
+            <p className="text-xs mt-2 text-gray-500">Rabu & Sabtu, 15.30-17.00 • 40 Peserta</p>
+          </div>
+          <div className="bg-white p-4 rounded-2xl shadow-md">
+            <img src="./Love Paskibraka.jpg" className="rounded-xl" alt="Paskibra" />
+            <h3 className="text-xl font-bold mt-4">Paskibra</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Membangun jiwa nasionalisme, disiplin, dan kerja sama tim melalui latihan baris-berbaris dan pengibaran bendera.
+            </p>
+            <p className="text-xs mt-2 text-gray-500">Senin & Kamis, 14.30-16.30 • 35 Peserta</p>
+          </div>
+        </div>
+        <button className="mt-8 px-6 py-3 bg-green-700 text-white rounded-2xl hover:bg-green-800 transition">
+          Lihat Semua Ekstrakurikuler
+        </button>
+      </section>
+
+      {/* Sistem Absensi Modern */}
+      <section className="px-8 py-16 grid md:grid-cols-2 items-center gap-8">
+        <div className="flex justify-center">
+          <img src="./qrcode.jpg" alt="QR Code" className="w-64 h-64" />
+        </div>
+        <div>
+          <h2 className="text-3xl font-bold mb-4">Sistem Absensi Modern</h2>
+          <p className="text-gray-600 mb-4">
+            Dengan teknologi QR code, siswa dapat melakukan absensi dalam hitungan detik.
+            Data langsung tersimpan secara digital dan dapat diakses kapan saja oleh pembina dan orang tua.
+          </p>
+          <ul className="space-y-2 text-gray-700">
+            <li>✔ Scan QR code di lokasi latihan untuk mencatat kehadiran</li>
+            <li>✔ Notifikasi real-time untuk orang tua ketika siswa hadir/absen</li>
+            <li>✔ Proteksi data dengan sistem keamanan tingkat tinggi</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="bg-green-800 text-white px-8 py-16 text-center">
+        <h2 className="text-2xl font-bold mb-4">Temukan bakatmu di kegiatan ekskul</h2>
+        <p className="max-w-2xl mx-auto mb-6">
+          Capek dengan pengelolaan ekskul yang ribet dan berantakan? Kini saatnya beralih ke platform digital yang memudahkan semua proses—dari pendaftaran, jadwal, hingga laporan kegiatan!
+        </p>
+        <p className="font-semibold">Mudah, Cepat, dan Efisien</p>
+        <p>Kelola semua kegiatan ekstrakurikuler dalam satu dashboard. Tanpa ribet!</p>
+      </section>
+    </main>
+
+   <Footer />
+    </>
+  );
+}
