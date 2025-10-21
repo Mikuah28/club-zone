@@ -1,125 +1,83 @@
 "use client";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { simpanUser } from "@/lib/action";
 
-export default function FormPendaftaran() {
-  const [formData, setFormData] = useState({
-    nama: "",
-    kelas: "",
-    telepon: "",
-    alasan: "",
-  });
-
-  
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.nama || !formData.kelas || !formData.telepon) {
-      alert("Harap isi semua field yang wajib diisi!");
-      return;
-    }
-    console.log("Data pendaftaran:", formData);
-    alert("Pendaftaran berhasil!");
-  };
-
-  const handleCancel = () => {
-    setFormData({
-      nama: "",
-      kelas: "",
-      telepon: "",
-      alasan: "",
-    });
-  };
+export default function DaftarForm() {
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow p-6">
-        <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center">
-          Form Pendaftaran
-        </h2>
-        <p className="text-sm mb-6 text-gray-600 text-center">
-          Isi data di bawah ini untuk mendaftar ke ekstrakurikuler{" "}
-          <span className="text-blue-600 font-semibold">Basket</span>
-        </p>
+    <div className="min-h-screen bg-gradient-to-r from-[#3F7D58] to-[#72E3A0] flex items-center justify-center">
+      <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl flex flex-col md:flex-row items-center w-[90%] max-w-4xl p-8">
+        
+        {/* Bagian Kiri */}
+        <div className="flex-1 text-white px-6">
+          <h1 className="text-3xl font-bold">
+            Club<span className="text-orange-500">Zone</span>
+          </h1>
+          <p className="mt-2 font-medium">
+            Masukan Username & Password <br /> untuk mengakses sistem
+          </p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Nama */}
-          <div>
-            <label className="block text-gray-700 mb-1">Nama Lengkap</label>
-            <input
-              type="text"
-              name="nama"
-              value={formData.nama}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Masukkan nama lengkap"
-            />
-          </div>
+          {/* Form Login */}
+          <form className="mt-6 space-y-4">
+            <div>
+              <label className="block mb-1">Username</label>
+              <input
+                type="text"
+                placeholder="Masukkan username"
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
+              />
+            </div>
 
-          {/* Kelas */}
-          <div>
-            <label className="block text-gray-700 mb-1">Kelas</label>
-            <select
-              name="kelas"
-              value={formData.kelas}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
-            >
-              <option value="">Pilih Kelas</option>
-              <option value="X">X</option>
-              <option value="XI">XI</option>
-              <option value="XII">XII</option>
-            </select>
-          </div>
+            <div>
+              <label className="block mb-1">Email</label>
+              <input
+                type="text"
+                placeholder="Masukkan email"
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
+              />
+            </div>
 
-          {/* Nomor Telepon */}
-          <div>
-            <label className="block text-gray-700 mb-1">Nomor Telepon</label>
-            <input
-              type="text"
-              name="telepon"
-              value={formData.telepon}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Contoh: 081234567890"
-            />
-          </div>
+            <div>
+              <label className="block mb-1">Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Masukan password"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-2.5 text-gray-500"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
 
-          {/* Alasan Bergabung */}
-          <div>
-            <label className="block text-gray-700 mb-1">Alasan Bergabung</label>
-            <textarea
-              name="alasan"
-              value={formData.alasan}
-              onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
-              rows="3"
-              placeholder="Mengapa kamu ingin bergabung?"
-            ></textarea>
-          </div>
-
-          {/* Tombol */}
-          <div className="flex justify-end space-x-3 mt-4">
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 shadow-[5px_5px_10px_rgba(0,0,0,0.10)]',
-"
-            >
-              <b>Batal</b>
+            <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">
+              Daftar
             </button>
-            <button
-              type="submit"
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.3) ,
-"
-            >
-              <b>Daftar</b>
-            </button>
-          </div>
-        </form>
+          </form>
+
+          <p className="mt-4 text-sm">
+            Sudah punya akun?{" "}
+            <a href="/masuk" className="text-orange-400 hover:underline">
+              Daftar di sini
+            </a>
+          </p>
+        </div>
+
+        {/* Bagian Kanan (gambar ilustrasi) */}
+        <div className="flex-1 hidden md:flex justify-center">
+          <img
+            src="./login.png"
+            alt="Login Illustration"
+            className="w-72"
+          />
+        </div>
       </div>
     </div>
   );
