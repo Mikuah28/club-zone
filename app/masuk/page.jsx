@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -24,7 +25,7 @@ export default function LoginForm() {
               <label className="block mb-1">Username</label>
               <input
                 type="text"
-                placeholder="NIPD"
+                placeholder="Masukkan username"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
               />
             </div>
@@ -47,9 +48,11 @@ export default function LoginForm() {
               </div>
             </div>
 
-            <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">
+            <Link href="/main">
+            <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">
               Masuk
             </button>
+            </Link>
           </form>
 
           <p className="mt-4 text-sm">
