@@ -18,7 +18,7 @@ export default function Sidebar({ onSelect }) {
   };
 
   return (
-    <div className="h-screen w-56 bg-green-800 shadow-md flex flex-col p-4">
+    <div className="h-screen w-56 bg-green-800 shadow-md flex flex-col p-4 fixed">
       <h1 className="text-2xl font-bold">Club<span className="text-orange-500">Zone</span></h1>
 
       <nav className="flex flex-col gap-4 mt-8">

@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { simpanUser } from "@/lib/action";
 
 export default function DaftarForm() {
   const [showPassword, setShowPassword] = useState(false);
