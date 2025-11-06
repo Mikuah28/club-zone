@@ -3,6 +3,7 @@ import { useState } from "react";
 import Sidebar from "@/components/sidebar";
 import AbsensiPage from "@/components/absensi";
 import ProfilePage from "@/components/profile";
+import EventPage from "@/components/event";
 
 export default function Home() {
   const [page, setPage] = useState("home");
@@ -10,7 +11,7 @@ export default function Home() {
   const renderPage = () => {
     switch (page) {
       case "home": return;
-      case "event": return ;
+      case "event": return <EventPage />;
       case "absensi": return <AbsensiPage />;
       case "profile": return <ProfilePage />;
       default: return ;
