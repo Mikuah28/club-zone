@@ -64,7 +64,7 @@ export default function DaftarForm() {
           <p className="mt-4 text-sm">
             Sudah punya akun?{" "}
             <a href="/masuk" className="text-orange-400 hover:underline">
-              Daftar di sini
+              Masuk di sini
             </a>
           </p>
         </div>
