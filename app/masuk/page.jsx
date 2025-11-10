@@ -1,10 +1,59 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 
-export default function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
+export default function LoginForm({ onLoginSuccess }) {
+    const [showPassword, setShowPassword] = useState(false);
+  const [viewConfirmPassword, setViewConfirmPassword] = useState(false); // diperbaiki
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setMessage("Username dan password tidak boleh kosong.");
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Cari pengguna berdasarkan username & password
+    const foundUser = users.find(
+      (user) => user.username === username && user.password === password
+    );
+
+    if (foundUser) {
+      // Simpan status login
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          username: foundUser.username,
+          email: foundUser.email,
+          extracurricular: foundUser.extracurricular || null,
+        })
+      );
+
+      alert("Login berhasil!");
+
+      setUsername("");
+      setPassword("");
+
+      // Redirect
+      router.push("/main");
+
+      if (onLoginSuccess) {
+        onLoginSuccess(username);
+      }
+    } else {
+      setMessage("username atau password salah.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#3F7D58] to-[#72E3A0] flex items-center justify-center">
@@ -20,11 +69,14 @@ export default function LoginForm() {
           </p>
 
           {/* Form Login */}
-          <form className="mt-6 space-y-4">
+          <form onSubmit={handleLogin} className="mt-6 space-y-4">
             <div>
               <label className="block mb-1">Username</label>
               <input
                 type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Masukkan username"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
               />
@@ -35,6 +87,9 @@ export default function LoginForm() {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Masukan password"
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
                 />
@@ -48,18 +103,16 @@ export default function LoginForm() {
               </div>
             </div>
 
-            <Link href="/main">
             <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg">
               Masuk
             </button>
-            </Link>
           </form>
 
           <p className="mt-4 text-sm">
             Belum punya akun?{" "}
-            <a href="/register" className="text-orange-400 hover:underline">
+            <Link href="/register" className="text-orange-400 hover:underline">
               Daftar di sini
-            </a>
+            </Link>
           </p>
         </div>
 

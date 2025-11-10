@@ -1,9 +1,52 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 
-export default function DaftarForm() {
+export default function DaftarForm({ onRegisterSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [viewConfirmPassword, setViewConfirmPassword] = useState(false); // diperbaiki
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const router = useRouter();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    if (!username || !password || !email) {
+      setMessage("Username, email, dan password tidak boleh kosong.");
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const userExists = users.some((user) => user.username === username);
+
+    if (userExists) {
+      setMessage("Username sudah digunakan. Silahkan gunakan username lain.");
+    } else {
+      users.push({ username, password, email, extracurricular: null, });
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("currentUser", JSON.stringify({ username, email, extracurricular: null, }));
+      localStorage.setItem("isLoggedIn", "true");
+
+      alert("Pendaftaran berhasil! Silahkan login.");
+
+      setUsername("");
+      setPassword("");
+      setEmail("");
+
+      router.push("/masuk");
+
+      if (onRegisterSuccess) {
+        onRegisterSuccess();
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-[#3F7D58] to-[#72E3A0] flex items-center justify-center">
@@ -19,11 +62,14 @@ export default function DaftarForm() {
           </p>
 
           {/* Form Login */}
-          <form className="mt-6 space-y-4">
+          <form onSubmit={handleRegister} className="mt-6 space-y-4">
             <div>
               <label className="block mb-1">Username</label>
               <input
                 type="text"
+                id="regUsername"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Masukkan username"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
               />
@@ -33,6 +79,9 @@ export default function DaftarForm() {
               <label className="block mb-1">Email</label>
               <input
                 type="text"
+                id="regEmail"
+                value={email}   
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Masukkan email"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
               />
@@ -43,6 +92,8 @@ export default function DaftarForm() {
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Masukan password"
                   className="w-full px-4 py-2 rounded-lg border border-gray-300 text-black bg-white"
                 />
@@ -63,9 +114,9 @@ export default function DaftarForm() {
 
           <p className="mt-4 text-sm">
             Sudah punya akun?{" "}
-            <a href="/masuk" className="text-orange-400 hover:underline">
+            <Link href="/masuk" className="text-orange-400 hover:underline">
               Masuk di sini
-            </a>
+            </Link>
           </p>
         </div>
 

@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function FormPendaftaran() {
   const [formData, setFormData] = useState({
@@ -9,7 +10,12 @@ export default function FormPendaftaran() {
     alasan: "",
   });
 
-  
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // ✅ Nama eskul dari query
+  const eskul = searchParams.get("eskul") || "Eskul";
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -17,21 +23,26 @@ export default function FormPendaftaran() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!formData.nama || !formData.kelas || !formData.telepon) {
-      alert("Harap isi semua field yang wajib diisi!");
+      alert("Harap isi semua field wajib!");
       return;
     }
-    console.log("Data pendaftaran:", formData);
-    alert("Pendaftaran berhasil!");
+
+    // ✅ Simpan eskul ke currentUser
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (currentUser) {
+      currentUser.extracurricular = eskul;
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    }
+
+    alert(`Pendaftaran ${eskul} berhasil!`);
+    router.push("/main");
   };
 
   const handleCancel = () => {
-    setFormData({
-      nama: "",
-      kelas: "",
-      telepon: "",
-      alasan: "",
-    });
+    router.back();
   };
 
   return (
@@ -40,9 +51,10 @@ export default function FormPendaftaran() {
         <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center">
           Form Pendaftaran
         </h2>
+
         <p className="text-sm mb-6 text-gray-600 text-center">
           Isi data di bawah ini untuk mendaftar ke ekstrakurikuler{" "}
-          <span className="text-blue-600 font-semibold">Basket</span>
+          <span className="text-blue-600 font-semibold">{eskul}</span>
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -54,7 +66,7 @@ export default function FormPendaftaran() {
               name="nama"
               value={formData.nama}
               onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border rounded-lg p-2 text-black focus:ring-green-500"
               placeholder="Masukkan nama lengkap"
             />
           </div>
@@ -66,7 +78,7 @@ export default function FormPendaftaran() {
               name="kelas"
               value={formData.kelas}
               onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border rounded-lg p-2 text-black focus:ring-green-500"
             >
               <option value="">Pilih Kelas</option>
               <option value="X">X</option>
@@ -75,7 +87,7 @@ export default function FormPendaftaran() {
             </select>
           </div>
 
-          {/* Nomor Telepon */}
+          {/* Telepon */}
           <div>
             <label className="block text-gray-700 mb-1">Nomor Telepon</label>
             <input
@@ -83,20 +95,20 @@ export default function FormPendaftaran() {
               name="telepon"
               value={formData.telepon}
               onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border rounded-lg p-2 text-black focus:ring-green-500"
               placeholder="Contoh: 081234567890"
             />
           </div>
 
-          {/* Alasan Bergabung */}
+          {/* Alasan */}
           <div>
             <label className="block text-gray-700 mb-1">Alasan Bergabung</label>
             <textarea
               name="alasan"
               value={formData.alasan}
               onChange={handleChange}
-              className="w-full border rounded-lg p-2 text-black focus:outline-none focus:ring-2 focus:ring-green-500"
               rows="3"
+              className="w-full border rounded-lg p-2 text-black focus:ring-green-500"
               placeholder="Mengapa kamu ingin bergabung?"
             ></textarea>
           </div>
@@ -106,15 +118,14 @@ export default function FormPendaftaran() {
             <button
               type="button"
               onClick={handleCancel}
-              className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 shadow-[5px_5px_10px_rgba(0,0,0,0.10)]',
-"
+              className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300"
             >
               <b>Batal</b>
             </button>
+
             <button
               type="submit"
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.3) ,
-"
+              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
             >
               <b>Daftar</b>
             </button>
