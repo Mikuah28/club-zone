@@ -1,4 +1,5 @@
 import { CalendarDays, Clock, MapPin, Users } from "lucide-react"
+import Link from "next/link"
 
 export default function EventCard() {
   return (
@@ -46,9 +47,11 @@ export default function EventCard() {
           </div>
         </div>
 
-        <button className="w-20 bg-orange-500 hover:bg-orange-600 text-white text-sm py-1.5 rounded-lg mt-2 transition">
-          Daftar
-        </button>
+        <Link href="daftarTurnamen">
+          <button className="w-20 bg-orange-500 hover:bg-orange-600 text-white text-sm py-1.5 rounded-lg mt-2 transition">
+            Daftar
+          </button>
+        </Link>
       </div>
     </div>
   )
